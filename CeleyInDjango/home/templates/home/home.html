@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h4>Home</h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="send">
+    </form>
+    <hr>
+    <div class="card">
+        {% for number in numbers %}
+            <a href="{% url 'home:sum' number.id %}" class="card-body"> {{ number.x }} + {{ number.y }}</a>
+            <br>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

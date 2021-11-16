@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <p>{{ object.title }}</p>
+    <small>{{ object.created }}</small><br><br>
+    <hr>
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+        <input type="submit" value="send" class="btn btn-primary">
+    </form><br><br>
+    <hr>
+    {% for cmt in object.tcomment.all %}
+        {{ cmt.name }}<br>
+        <small>{{ cmt.body }}</small>
+        <br>
+        <hr>
+    {% endfor %}
+
+
+{% endblock %}
