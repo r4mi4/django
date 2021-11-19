@@ -27,7 +27,7 @@ def order_create(request):
     return redirect('orders:detail', order.id)
 
 
-MERCHANT = 'b0bbe58e-cbf8-11ea-a34f-000c295eb8fc'
+MERCHANT = ''
 client = Client('https://www.zarinpal.com/pg/services/WebGate/wsdl')
 description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"  # Required
 email = 'email@example.com'  # Optional
