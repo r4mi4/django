@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
-from accounts.forms import UserRegistrationForm
+from accounts.forms import UserLoginForm, UserRegistrationForm
 
 
 class TestRegisterView(TestCase):
@@ -38,4 +38,41 @@ class TestRegisterView(TestCase):
 
 
 class TestLoginView(TestCase):
-    pass
+    def setUp(self):
+        self.client = Client()
+        User.objects.create_user('ramin','ramin@email.com','ramin')
+
+    def test_user_login_GET(self):
+        response = self.client.get(reverse('accounts:user_login'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response,'accounts/login.html')
+        self.failUnless(response.context['form'],UserLoginForm)
+
+    def test_user_login_POST_valid(self):
+        response = self.client.post(reverse('accounts:user_login'),data={
+            'username': 'ramin',
+            'password': 'ramin'
+        }, follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context['user'].is_active)
+
+    def test_user_login_POST_invalid(self):
+        response = self.client.post(reverse('accounts:user_login'),data={
+            'username':'ramin',
+            'password': 'ali'
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context['user'].is_active)
+
+class TestLogout(TestCase):
+    def setUp(self):
+        self.client = Client()
+        User.objects.create_user('ramin','ramin@email.com','ramin')
+        self.client.login(username = 'ramin', password = 'ramin')
+
+    def test_logout(self):
+        response = self.client.get(reverse('accounts:user_logout'),follow=True)
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context['user'].is_active)
+
+
