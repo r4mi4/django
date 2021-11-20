@@ -53,10 +53,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'weblog.urls'
+
+# add email authentication
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'accounts.authenticate.EmailUsBackend',
 ]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
