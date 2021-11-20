@@ -5,7 +5,6 @@ from django.contrib import messages
 from .models import User
 
 
-# Create your views here.
 
 def user_login(request):
     if request.method == 'POST':

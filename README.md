@@ -1,2 +1,2 @@
-# Projects wrote with Django 
+# Projects wrote by Django 
 

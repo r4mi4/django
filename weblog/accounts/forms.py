@@ -23,7 +23,8 @@ class UserRegistrationForm(forms.Form):
         email = self.cleaned_data['email']
         user = User.objects.filter(email=email)
         if user.exists():
-            raise forms.ValidationError('this email already exists ! plz enter enother one')
+            raise forms.ValidationError(
+                'this email already exists ! plz enter enother one')
         return email
 
     # pass2 : because if use pass1 ,pass2  not created yet and we get an error
