@@ -1,2 +1,3 @@
-# Projects wrote by Django 
+# Projects written by Django 
+
 
